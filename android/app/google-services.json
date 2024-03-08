@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "895479065951",
+    "project_id": "foodshare-5cd7b",
+    "storage_bucket": "foodshare-5cd7b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:895479065951:android:2ccd78c3f1167fc5171aea",
+        "android_client_info": {
+          "package_name": "com.example.foodshare"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4B_VG7Hw85cuA5oAbAKfpwfPulXqDqWk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:895479065951:android:142985bd3af69b4d171aea",
+        "android_client_info": {
+          "package_name": "com.example.foodshareapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4B_VG7Hw85cuA5oAbAKfpwfPulXqDqWk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

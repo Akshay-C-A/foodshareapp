@@ -1,0 +1,165 @@
+// FirestoreService firestoreService = FirestoreService();
+
+  // // Function to add donation to cart
+  // void addToCart(DocumentSnapshot donation) {
+  //   firestoreService.addtoCart(
+  //     foodName: donation['foodName'],
+  //     foodQuantity: donation['foodQuantity'],
+  //     foodExpiry: donation['foodExpiry'],
+  //     address: donation['address'],
+  //     contact: donation['contact'],
+  //   );
+  //   ScaffoldMessenger.of(context).showSnackBar(
+  //     SnackBar(content: Text('Added to Cart')),
+  //   );
+  // }
+
+
+
+
+
+child: StreamBuilder<QuerySnapshot>(
+        stream: firestoreService.getDonationsStream(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<DocumentSnapshot> donations = snapshot.data!.docs;
+
+            return ListView.builder(
+              itemCount: donations.length,
+              itemBuilder: (context, index) {
+                DocumentSnapshot donation = donations[index];
+                Map<String, dynamic> data =
+                    donation.data() as Map<String, dynamic>;
+
+                // Extract donation details
+                String foodName = data['foodName'];
+                String foodQuantity = data['foodQuantity'];
+                String foodExpiry = data['foodExpiry'];
+                String address = data['address'];
+                String contact = data['contact'];
+
+                return Card(
+                  elevation: 2,
+                  margin: EdgeInsets.fromLTRB(15.0, 7.0, 15.0, 7.0),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ListTile(
+                          title: Text(foodName),
+                          subtitle: Text(
+                              'Quantity: $foodQuantity\nExpiry: $foodExpiry\nAddress: $address\nContact: $contact'),
+                          onTap: () {
+                            // Navigate to a screen for updating the donation (if needed)
+                          },
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            ElevatedButton(
+                              onPressed: () {
+                                addToCart(donation);
+                              },
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.amberAccent),
+                              ),
+                              child: Text('Add to Cart'),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
+
+
+class CartPage extends StatelessWidget {
+  final FirestoreService firestoreService = FirestoreService();
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: StreamBuilder<QuerySnapshot>(
+        stream: firestoreService.getCartItemsStream(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            List<DocumentSnapshot> cartItems = snapshot.data!.docs;
+
+            if (cartItems.isEmpty) {
+              return Text('Your cart is empty.');
+            }
+
+            return ListView.builder(
+              itemCount: cartItems.length,
+              itemBuilder: (context, index) {
+                DocumentSnapshot cartItem = cartItems[index];
+                Map<String, dynamic> data = cartItem.data() as Map<String, dynamic>;
+
+                // Extract item details
+                String foodName = data['foodName'];
+                String foodQuantity = data['foodQuantity'];
+
+                return ListTile(
+                  title: Text(foodName),
+                  subtitle: Text('Quantity: $foodQuantity'),
+                  trailing: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.add),
+                        onPressed: () {
+                          // Increment quantity
+                          // firestoreService.updateCartItemQuantity(cartItem.id, foodQuantity + 1);
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.remove),
+                        onPressed: () {
+                          // Decrement quantity
+                          // if (foodQuantity > 1) {
+                          //   firestoreService.updateCartItemQuantity(cartItem.id, foodQuantity - 1);
+                          // }
+                        },
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          // Delete item from cart
+                          firestoreService.deleteCartItem(cartItem.id);
+                        },
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          } else if (snapshot.hasError) {
+            return Center(
+              child: Text('Error: ${snapshot.error}'),
+            );
+          } else {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+        },
+      ),
+    );
+  }
+}
