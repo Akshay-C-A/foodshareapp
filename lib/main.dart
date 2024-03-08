@@ -3,12 +3,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:foodshareapp/userselection.dart';
 import 'firebase_options.dart';
 
-// dfd
+// hi hello
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-await Firebase.initializeApp(
+  await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
-);
+  );
   runApp(const MyApp());
 }
 
@@ -22,9 +22,10 @@ class MyApp extends StatelessWidget {
       title: 'Food Donation App',
       theme: ThemeData(
         primarySwatch: Colors.blue,
-        scaffoldBackgroundColor: Color.fromARGB(255, 255, 255, 253), // Background color
+        scaffoldBackgroundColor:
+            Color.fromARGB(255, 255, 255, 253), // Background color
       ),
-      home: UserTypeSelectionPage(),);
+      home: UserTypeSelectionPage(),
+    );
   }
 }
-
