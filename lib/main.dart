@@ -3,7 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:foodshareapp/userselection.dart';
 import 'firebase_options.dart';
 
-// hi i am amiya
+// hi i am amiya hiday
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
